@@ -1,4 +1,4 @@
-﻿namespace Okex.Net
+namespace Okex.Net
 {
     public enum OkexSpotPeriod
     {
@@ -200,7 +200,14 @@
         TickByTick,
     }
 
-    public enum OkexSpotOrderBookDataType
+    public enum OkexFuturesOrderBookDepth
+    {
+	    Depth5,
+	    Depth400,
+	    TickByTick,
+    }
+
+	public enum OkexSpotOrderBookDataType
     {
         /// <summary>
         /// This does not exists normally. Used for Rest Api response
@@ -223,7 +230,30 @@
         DepthUpdate,
     }
 
-    public enum OkexSpotMarginOrderSourceType
+	public enum OkexFuturesOrderBookDataType
+	{
+		/// <summary>
+		/// This does not exists normally. Used for Rest Api response
+		/// </summary>
+		Api,
+
+		/// <summary>
+		/// This does not exists normally. Used for Web Socket Depth5 response
+		/// </summary>
+		DepthTop5,
+
+		/// <summary>
+		/// Web Socket Order Book Partial Data
+		/// </summary>
+		DepthPartial,
+
+		/// <summary>
+		/// Web Socket Order Book Update Data
+		/// </summary>
+		DepthUpdate,
+	}
+
+	public enum OkexSpotMarginOrderSourceType
     {
         Spot,
         Margin,

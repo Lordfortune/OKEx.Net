@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.Attributes;
+using CryptoExchange.Net.Attributes;
 using CryptoExchange.Net.Converters;
 using Newtonsoft.Json;
 using Okex.Net.Converters;
@@ -61,5 +61,17 @@ namespace Okex.Net.SocketObjects.Structure
 
         [JsonProperty("data")]
         public IEnumerable<OkexSpotOrderBook> Data { get; set; } = default!;
+    }
+
+    internal class OkexSocketFuturesOrderBookUpdate
+    {
+	    [JsonProperty("table")]
+	    internal string Table { get; set; } = "";
+
+	    [JsonProperty("action"), JsonOptionalProperty, JsonConverter(typeof(FuturesOrderBookDataTypeConverter))]
+	    internal OkexFuturesOrderBookDataType DataType { get; set; }
+
+	    [JsonProperty("data")]
+	    public IEnumerable<OkexFuturesOrderBook> Data { get; set; } = default!;
     }
 }
