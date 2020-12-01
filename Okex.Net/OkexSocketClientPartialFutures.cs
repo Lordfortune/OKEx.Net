@@ -32,9 +32,7 @@ namespace Okex.Net
 				foreach (var d in data.Data)
 				{
 					d.Symbol = symbol.ToUpper(OkexGlobals.OkexCultureInfo);
-					d.DataType = depth == OkexFuturesOrderBookDepth.Depth5
-						? OkexFuturesOrderBookDataType.DepthTop5
-						: data.DataType;
+					d.DataType = depth == OkexFuturesOrderBookDepth.Depth5 ? OkexFuturesOrderBookDataType.DepthTop5 : data.DataType;
 					onData(d);
 				}
 			});

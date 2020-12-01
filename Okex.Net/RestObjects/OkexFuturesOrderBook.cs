@@ -47,15 +47,20 @@ namespace Okex.Net.RestObjects
 		public decimal Price { get; set; }
 
 		/// <summary>
-		/// The quantity for this entry
+		/// The contract size at the price
 		/// </summary>
 		[ArrayProperty(1)]
-		public decimal Quantity { get; set; }
+		public decimal ContractSize { get; set; }
 
 		/// <summary>
-		/// Number of orders at the price
+		/// The number of the liquidated orders at the price
 		/// </summary>
 		[ArrayProperty(2)]
-		public decimal OrdersCount { get; set; }
+		public decimal LiquidatedOrdersByPrice { get; set; }
+		/// <summary>
+		/// The number of orders at the price
+		/// </summary>
+		[ArrayProperty(3)]
+		public decimal OrdersByPrice { get; set; }
 	}
 }
