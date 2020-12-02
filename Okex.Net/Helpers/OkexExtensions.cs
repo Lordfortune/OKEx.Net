@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Globalization;
 using System.Text.RegularExpressions;
 
@@ -219,8 +219,16 @@ namespace Okex.Net.Helpers
             return !@this.IsOneOf(values);
         }
 
-        #endregion
+		#endregion
 
-    }
+		#region String
+
+		public static bool IsNullOrEmpty(this string s)
+		{
+			return string.IsNullOrEmpty(s);
+		}
+
+		#endregion
+	}
 
 }

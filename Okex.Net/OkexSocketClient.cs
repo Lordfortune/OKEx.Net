@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net;
+using CryptoExchange.Net;
 using CryptoExchange.Net.Logging;
 using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Sockets;
@@ -8,7 +8,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
-using System.Linq;
 using System.Threading.Tasks;
 using Okex.Net.Interfaces;
 using System.Diagnostics;
@@ -272,8 +271,20 @@ namespace Okex.Net
                     }
                 }
 
-                // Depth400 Update
-                if (hRequest.Operation == OkexSocketOperation.Subscribe && message["table"] != null && ((string)message["table"]).StartsWith("spot/depth"))
+                if (hRequest.Operation == OkexSocketOperation.Subscribe && message["table"] != null && ((string)message["table"]).StartsWith("futures/depth5"))
+                {
+	                if (message["data"] != null && message["data"].HasValues && message["data"][0]["instrument_id"] != null)
+	                {
+		                var channel = (string)message["table"] + ":" + (string)message["data"][0]["instrument_id"];
+		                if (hRequest.Arguments.Contains(channel))
+		                {
+			                return true;
+		                }
+	                }
+                }
+
+				// Depth400 Update
+				if (hRequest.Operation == OkexSocketOperation.Subscribe && message["table"] != null && ((string)message["table"]).StartsWith("spot/depth"))
                 {
                     if (message["data"] != null && message["data"].HasValues && message["data"][0]["instrument_id"] != null)
                     {

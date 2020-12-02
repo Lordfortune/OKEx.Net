@@ -15,20 +15,20 @@ namespace Okex.Net.RestObjects
 		[JsonProperty("checksum"), JsonOptionalProperty]
 		public long Checksum { get; set; }
 
-		[JsonOptionalProperty, JsonConverter(typeof(SpotOrderBookDataTypeConverter))]
+		[JsonOptionalProperty, JsonConverter(typeof(FuturesOrderBookDataTypeConverter))]
 		public OkexFuturesOrderBookDataType DataType { get; set; } = OkexFuturesOrderBookDataType.Api;
 
 		/// <summary>
 		/// Selling side
 		/// </summary>
 		[JsonProperty("asks")]
-		public IEnumerable<OkexFuturesOrderBookEntry> Asks { get; set; } = new List<OkexFuturesOrderBookEntry>();
+		public List<OkexFuturesOrderBookEntry> Asks { get; set; } = new List<OkexFuturesOrderBookEntry>();
 
 		/// <summary>
 		/// Buying side
 		/// </summary>
 		[JsonProperty("bids")]
-		public IEnumerable<OkexFuturesOrderBookEntry> Bids { get; set; } = new List<OkexFuturesOrderBookEntry>();
+		public List<OkexFuturesOrderBookEntry> Bids { get; set; } = new List<OkexFuturesOrderBookEntry>();
 
 		/// <summary>
 		/// Timestamp
