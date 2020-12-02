@@ -75,6 +75,44 @@ namespace Okex.Net
 			return new WebCallResult<OkexFuturesOrderBook>(result.ResponseStatusCode, result.ResponseHeaders, result.Data, null);
 		}
 
+		/// <summary>
+		/// Retrieve order details by order ID.Can get order information for nearly 3 months。 Unfilled orders will be kept in record for only two hours after it is canceled.
+		/// Rate limit: 20 requests per 2 seconds
+		/// </summary>
+		/// <param name="symbol">Contract ID,e.g.BTC-USD-180213 ,BTC-USDT-191227</param>
+		/// <param name="orderId">Order ID Either client_oid or order_id must be present.</param>
+		/// <param name="clientOrderId">Client-supplied order ID Either client_oid or order_id must be present.</param>
+		/// <param name="ct">Cancellation Token</param>
+		/// <returns></returns>
+		public WebCallResult<OkexFuturesOrderDetails> Futures_GetOrderDetails(string symbol, long? orderId = null, string? clientOrderId = null, CancellationToken ct = default) => Futures_GetOrderDetails_Async(symbol, orderId, clientOrderId, ct).Result;
+		/// <summary>
+		/// Retrieve order details by order ID.Can get order information for nearly 3 months。 Unfilled orders will be kept in record for only two hours after it is canceled.
+		/// Rate limit: 20 requests per 2 seconds
+		/// </summary>
+		/// <param name="symbol">Contract ID,e.g.BTC-USD-180213 ,BTC-USDT-191227</param>
+		/// <param name="orderId">Order ID Either client_oid or order_id must be present.</param>
+		/// <param name="clientOrderId">Client-supplied order ID Either client_oid or order_id must be present.</param>
+		/// <param name="ct">Cancellation Token</param>
+		/// <returns></returns>
+		/// 
+		public async Task<WebCallResult<OkexFuturesOrderDetails>> Futures_GetOrderDetails_Async(string symbol, long? orderId = null, string? clientOrderId = null, CancellationToken ct = default)
+		{
+			symbol = symbol.ValidateSymbol();
+
+			if (orderId == null && string.IsNullOrEmpty(clientOrderId))
+				throw new ArgumentException("Either orderId or clientOrderId must be present.");
+
+			if (orderId != null && !string.IsNullOrEmpty(clientOrderId))
+				throw new ArgumentException("Either orderId or clientOrderId must be present.");
+
+			var parameters = new Dictionary<string, object>
+			{
+				{ "instrument_id", symbol },
+			};
+
+			return await SendRequest<OkexFuturesOrderDetails>(GetUrl(Endpoints_Futures_OrderDetails, orderId.HasValue ? orderId.ToString() : clientOrderId!), HttpMethod.Get, ct, parameters, signed: true).ConfigureAwait(false);
+		}
+
 		public WebCallResult<OkexFuturesPlacedOrder> Futures_PlaceOrder(OkexFuturesOrderParams orderParams,
 			CancellationToken ct = default)
 		{

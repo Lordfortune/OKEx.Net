@@ -356,4 +356,15 @@ namespace Okex.Net
 		No = 0,
 		Yes = 1
 	}
+
+	public enum OkexFuturesOrderState
+	{
+		Failed = -2,
+		Canceled = -1,
+		Open = 0,
+		PartiallyFilled  = 1,
+		FullyFilled = 2,
+		Submitting = 3,
+		Canceling = 4
+	}
 }

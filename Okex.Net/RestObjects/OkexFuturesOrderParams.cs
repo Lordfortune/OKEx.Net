@@ -9,6 +9,5 @@ namespace Okex.Net.RestObjects
 		public decimal Size { get; set; }
 		public OkexFuturesOrderMatchPrice? MatchPrice { get; set; }
 		public OkexFuturesOrderType? OrderType { get; set; }
-
 	}
 }
