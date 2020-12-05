@@ -32,7 +32,7 @@ namespace Okex.Net
 		/// <returns></returns>
 		public async Task<WebCallResult<IEnumerable<OkexFuturesMarketData>>> Futures_GetMarketData_Async(CancellationToken ct = default)
 		{
-			return await SendRequest<IEnumerable<OkexFuturesMarketData>>(GetUrl(Endpoints_Futures_TradingContracts), HttpMethod.Get, ct).ConfigureAwait(false);
+			return await SendRequest<IEnumerable<OkexFuturesMarketData>>(GetUrl(Endpoints_Futures_Accounts), HttpMethod.Get, ct).ConfigureAwait(false);
 		}
 
 		/// <summary>
@@ -63,7 +63,6 @@ namespace Okex.Net
 			parameters.AddOptionalParameter("size", size);
 			parameters.AddOptionalParameter("depth", depth);
 
-
 			var result = await SendRequest<OkexFuturesOrderBook>(GetUrl(Endpoints_Futures_OrderBook, symbol), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
 			if (!result || result.Data == null)
 				return new WebCallResult<OkexFuturesOrderBook>(result.ResponseStatusCode, result.ResponseHeaders, default, result.Error);
@@ -84,6 +83,7 @@ namespace Okex.Net
 		/// <param name="clientOrderId">Client-supplied order ID Either client_oid or order_id must be present.</param>
 		/// <param name="ct">Cancellation Token</param>
 		/// <returns></returns>
+
 		public WebCallResult<OkexFuturesOrderDetails> Futures_GetOrderDetails(string symbol, long? orderId = null, string? clientOrderId = null, CancellationToken ct = default) => Futures_GetOrderDetails_Async(symbol, orderId, clientOrderId, ct).Result;
 		/// <summary>
 		/// Retrieve order details by order ID.Can get order information for nearly 3 months。 Unfilled orders will be kept in record for only two hours after it is canceled.
@@ -117,6 +117,24 @@ namespace Okex.Net
 			CancellationToken ct = default)
 		{
 			return Futures_PlaceOrder_Async(orderParams, ct).Result;
+		}
+
+		/// <summary>
+		/// Retrieve information from all tokens in the futures account. You are recommended to get the information one token at a time to improve performance.
+		/// </summary>
+		/// <param name="ct">Cancellation Token</param>
+		/// <returns></returns>
+		public WebCallResult<FuturesAccountInfo> Futures_GetAllBalances(CancellationToken ct = default) => Futures_GetAllBalances_Async(ct).Result;
+		/// <summary>
+		/// Retrieve information from all tokens in the futures account. You are recommended to get the information one token at a time to improve performance.
+		/// </summary>
+		/// <param name="ct">Cancellation Token</param>
+		/// <returns></returns>
+		public async Task<WebCallResult<FuturesAccountInfo>> Futures_GetAllBalances_Async(CancellationToken ct = default)
+		{
+			var result = await SendRequest<FuturesAccountInfo>(GetUrl(Endpoints_Futures_Accounts), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
+			return result;
+
 		}
 
 		public async Task<WebCallResult<OkexFuturesPlacedOrder>> Futures_PlaceOrder_Async(OkexFuturesOrderParams orderParams, CancellationToken ct = default)

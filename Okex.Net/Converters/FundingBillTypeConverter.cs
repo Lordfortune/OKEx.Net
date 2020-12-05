@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.Converters;
+using CryptoExchange.Net.Converters;
 using System.Collections.Generic;
 
 namespace Okex.Net.Converters
@@ -10,7 +10,7 @@ namespace Okex.Net.Converters
 
         protected override List<KeyValuePair<OkexFundingBillType, string>> Mapping => new List<KeyValuePair<OkexFundingBillType, string>>
         {
-            new KeyValuePair<OkexFundingBillType, string>(OkexFundingBillType.Deposit, "1"),
+            new KeyValuePair<OkexFundingBillType, string>(OkexFundingBillType.Deposit, $"1"),
             new KeyValuePair<OkexFundingBillType, string>(OkexFundingBillType.Withdrawal, "2"),
             new KeyValuePair<OkexFundingBillType, string>(OkexFundingBillType.CanceledWithdrawal, "13"),
             new KeyValuePair<OkexFundingBillType, string>(OkexFundingBillType.TransferIntoFutures, "18"),
