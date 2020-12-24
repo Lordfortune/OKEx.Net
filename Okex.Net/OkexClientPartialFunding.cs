@@ -281,7 +281,7 @@ namespace Okex.Net
 			{
 				{ "currency", currency },
 				{ "amount", amount },
-				{ "destination", JsonConvert.SerializeObject(destination, new FundinWithdrawalDestinationConverter(false)) },
+				{ "destination", JsonConvert.SerializeObject(destination, new FundingWithdrawalDestinationConverter(false)) },
 				{ "to_address", toAddress },
 				{ "trade_pwd", fundPassword },
 				{ "fee", fee },

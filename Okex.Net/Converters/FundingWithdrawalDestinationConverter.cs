@@ -1,12 +1,12 @@
-﻿using CryptoExchange.Net.Converters;
+using CryptoExchange.Net.Converters;
 using System.Collections.Generic;
 
 namespace Okex.Net.Converters
 {
-    internal class FundinWithdrawalDestinationConverter : BaseConverter<OkexFundinWithdrawalDestination>
+    internal class FundingWithdrawalDestinationConverter : BaseConverter<OkexFundinWithdrawalDestination>
     {
-        public FundinWithdrawalDestinationConverter() : this(true) { }
-        public FundinWithdrawalDestinationConverter(bool quotes) : base(quotes) { }
+        public FundingWithdrawalDestinationConverter() : this(true) { }
+        public FundingWithdrawalDestinationConverter(bool quotes) : base(quotes) { }
 
         protected override List<KeyValuePair<OkexFundinWithdrawalDestination, string>> Mapping => new List<KeyValuePair<OkexFundinWithdrawalDestination, string>>
         {

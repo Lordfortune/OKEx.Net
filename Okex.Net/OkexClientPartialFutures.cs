@@ -44,7 +44,8 @@ namespace Okex.Net
 		/// <param name="depth">Aggregation of the order book. e.g . 0.1, 0.001</param>
 		/// <param name="ct">Cancellation Token</param>
 		/// <returns></returns>
-		public WebCallResult<OkexFuturesOrderBook> Future_GetOrderBook(string symbol, int? size = null, decimal? depth = null, CancellationToken ct = default) => Futures_GetOrderBook_Async(symbol, size, depth, ct).Result;
+		public WebCallResult<OkexFuturesOrderBook> Futures_GetOrderBook(string symbol, int? size = null, decimal? depth = null, CancellationToken ct = default) => Futures_GetOrderBook_Async(symbol, size, depth, ct).Result;
+
 		/// <summary>
 		/// Retrieve a trading pair's order book. Pagination is not supported here; the entire orderbook will be returned per request. This is publicly accessible without account authentication. WebSocket is recommended here.
 		/// Rate limit: 20 requests per 2 seconds
@@ -83,8 +84,12 @@ namespace Okex.Net
 		/// <param name="clientOrderId">Client-supplied order ID Either client_oid or order_id must be present.</param>
 		/// <param name="ct">Cancellation Token</param>
 		/// <returns></returns>
-
-		public WebCallResult<OkexFuturesOrderDetails> Futures_GetOrderDetails(string symbol, long? orderId = null, string? clientOrderId = null, CancellationToken ct = default) => Futures_GetOrderDetails_Async(symbol, orderId, clientOrderId, ct).Result;
+		public WebCallResult<OkexFuturesOrderDetails> Futures_GetOrderDetails(string symbol, long? orderId = null,
+			string? clientOrderId = null, CancellationToken ct = default)
+		{
+			return Futures_GetOrderDetails_Async(symbol, orderId, clientOrderId, ct).Result;
+		}
+		
 		/// <summary>
 		/// Retrieve order details by order ID.Can get order information for nearly 3 months。 Unfilled orders will be kept in record for only two hours after it is canceled.
 		/// Rate limit: 20 requests per 2 seconds
@@ -94,7 +99,6 @@ namespace Okex.Net
 		/// <param name="clientOrderId">Client-supplied order ID Either client_oid or order_id must be present.</param>
 		/// <param name="ct">Cancellation Token</param>
 		/// <returns></returns>
-		/// 
 		public async Task<WebCallResult<OkexFuturesOrderDetails>> Futures_GetOrderDetails_Async(string symbol, long? orderId = null, string? clientOrderId = null, CancellationToken ct = default)
 		{
 			symbol = symbol.ValidateSymbol();
@@ -113,12 +117,6 @@ namespace Okex.Net
 			return await SendRequest<OkexFuturesOrderDetails>(GetUrl(Endpoints_Futures_OrderDetails, orderId.HasValue ? orderId.ToString() : clientOrderId!), HttpMethod.Get, ct, parameters, signed: true).ConfigureAwait(false);
 		}
 
-		public WebCallResult<OkexFuturesPlacedOrder> Futures_PlaceOrder(OkexFuturesOrderParams orderParams,
-			CancellationToken ct = default)
-		{
-			return Futures_PlaceOrder_Async(orderParams, ct).Result;
-		}
-
 		/// <summary>
 		/// Retrieve information from all tokens in the futures account. You are recommended to get the information one token at a time to improve performance.
 		/// </summary>
@@ -134,7 +132,12 @@ namespace Okex.Net
 		{
 			var result = await SendRequest<FuturesAccountInfo>(GetUrl(Endpoints_Futures_Accounts), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
 			return result;
+		}
 
+		public WebCallResult<OkexFuturesPlacedOrder> Futures_PlaceOrder(OkexFuturesOrderParams orderParams,
+			CancellationToken ct = default)
+		{
+			return Futures_PlaceOrder_Async(orderParams, ct).Result;
 		}
 
 		public async Task<WebCallResult<OkexFuturesPlacedOrder>> Futures_PlaceOrder_Async(OkexFuturesOrderParams orderParams, CancellationToken ct = default)

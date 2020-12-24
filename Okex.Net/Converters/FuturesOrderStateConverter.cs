@@ -10,13 +10,13 @@ namespace Okex.Net.Converters
 
 		protected override List<KeyValuePair<OkexFuturesOrderState, string>> Mapping => new List<KeyValuePair<OkexFuturesOrderState, string>>
 		{
-			new KeyValuePair<OkexFuturesOrderState, string>(OkexFuturesOrderState.Failed, $"{OkexFuturesOrderState.Failed}"),
-			new KeyValuePair<OkexFuturesOrderState, string>(OkexFuturesOrderState.Canceled, $"{OkexFuturesOrderState.Canceled}"),
-			new KeyValuePair<OkexFuturesOrderState, string>(OkexFuturesOrderState.Open, $"{OkexFuturesOrderState.Open}"),
-			new KeyValuePair<OkexFuturesOrderState, string>(OkexFuturesOrderState.PartiallyFilled, $"{OkexFuturesOrderState.PartiallyFilled}"),
-			new KeyValuePair<OkexFuturesOrderState, string>(OkexFuturesOrderState.FullyFilled, $"{OkexFuturesOrderState.FullyFilled}"),
-			new KeyValuePair<OkexFuturesOrderState, string>(OkexFuturesOrderState.Submitting, $"{OkexFuturesOrderState.Submitting}"),
-			new KeyValuePair<OkexFuturesOrderState, string>(OkexFuturesOrderState.Canceling, $"{OkexFuturesOrderState.Canceling}")
+			new KeyValuePair<OkexFuturesOrderState, string>(OkexFuturesOrderState.Failed, "-2"),
+			new KeyValuePair<OkexFuturesOrderState, string>(OkexFuturesOrderState.Canceled, "-1"),
+			new KeyValuePair<OkexFuturesOrderState, string>(OkexFuturesOrderState.Open, "0"),
+			new KeyValuePair<OkexFuturesOrderState, string>(OkexFuturesOrderState.PartiallyFilled, "1"),
+			new KeyValuePair<OkexFuturesOrderState, string>(OkexFuturesOrderState.FullyFilled, "2"),
+			new KeyValuePair<OkexFuturesOrderState, string>(OkexFuturesOrderState.Submitting, "3"),
+			new KeyValuePair<OkexFuturesOrderState, string>(OkexFuturesOrderState.Canceling, "4")
 		};
 	}
 }

@@ -10,11 +10,11 @@ namespace Okex.Net.Converters
 
 		protected override List<KeyValuePair<OkexFuturesOrderType, string>> Mapping => new List<KeyValuePair<OkexFuturesOrderType, string>>
 		{
-			new KeyValuePair<OkexFuturesOrderType, string>(OkexFuturesOrderType.NormalOrder, $"{OkexFuturesOrderType.NormalOrder}"),
-			new KeyValuePair<OkexFuturesOrderType, string>(OkexFuturesOrderType.PostOnly, $"{OkexFuturesOrderType.PostOnly}"),
-			new KeyValuePair<OkexFuturesOrderType, string>(OkexFuturesOrderType.ImmediateOrCancel, $"{OkexFuturesOrderType.ImmediateOrCancel}"),
-			new KeyValuePair<OkexFuturesOrderType, string>(OkexFuturesOrderType.FillOrKill, $"{OkexFuturesOrderType.FillOrKill}"),
-			new KeyValuePair<OkexFuturesOrderType, string>(OkexFuturesOrderType.Market, $"{OkexFuturesOrderType.Market}")
+			new KeyValuePair<OkexFuturesOrderType, string>(OkexFuturesOrderType.NormalOrder, "0"),
+			new KeyValuePair<OkexFuturesOrderType, string>(OkexFuturesOrderType.PostOnly, "1"),
+			new KeyValuePair<OkexFuturesOrderType, string>(OkexFuturesOrderType.FillOrKill, "2"),
+			new KeyValuePair<OkexFuturesOrderType, string>(OkexFuturesOrderType.ImmediateOrCancel, "3"),
+			new KeyValuePair<OkexFuturesOrderType, string>(OkexFuturesOrderType.Market, "4")
 		};
 	}
 }
