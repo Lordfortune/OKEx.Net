@@ -89,7 +89,7 @@ namespace Okex.Net
 		{
 			return Futures_GetOrderDetails_Async(symbol, orderId, clientOrderId, ct).Result;
 		}
-		
+
 		/// <summary>
 		/// Retrieve order details by order ID.Can get order information for nearly 3 months。 Unfilled orders will be kept in record for only two hours after it is canceled.
 		/// Rate limit: 20 requests per 2 seconds
@@ -132,6 +132,36 @@ namespace Okex.Net
 		{
 			var result = await SendRequest<FuturesAccountInfo>(GetUrl(Endpoints_Futures_Accounts), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
 			return result;
+		}
+
+		public WebCallResult<OkexFuturesOrderDetails> Futures_OrderDetails(string orderId, string instrumentId,
+			string clientOId, CancellationToken ct = default)
+		{
+			return Futures_OrderDetails_Async(orderId, instrumentId, clientOId, ct).Result;
+		}
+
+		public async Task<WebCallResult<OkexFuturesOrderDetails>> Futures_OrderDetails_Async(string orderId, string instrumentId,
+			string clientOId, CancellationToken ct = default)
+		{
+			if (instrumentId.IsNullOrEmpty())
+			{
+				throw new ArgumentException("The instrument id is required");
+			}
+
+			if (orderId.IsNullOrEmpty() && clientOId.IsNullOrEmpty())
+			{
+				throw new ArgumentException("Either client_oid or order_id must be present");
+			}
+
+			var parameters = new Dictionary<string, object>
+			{
+				{ "instrument_id", instrumentId}
+			};
+
+			parameters.AddOptionalParameter("order_id", orderId);
+			parameters.AddOptionalParameter("client_oid", clientOId);
+
+			return await SendRequest<OkexFuturesOrderDetails>(GetUrl(Endpoints_Futures_OrderDetails), HttpMethod.Get, ct, parameters, signed: true).ConfigureAwait(false);
 		}
 
 		public WebCallResult<OkexFuturesPlacedOrder> Futures_PlaceOrder(OkexFuturesOrderParams orderParams,
