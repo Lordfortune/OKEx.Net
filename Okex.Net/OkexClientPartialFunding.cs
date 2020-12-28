@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net;
+using CryptoExchange.Net;
 using CryptoExchange.Net.Objects;
 using Okex.Net.Converters;
 using Okex.Net.RestObjects;
@@ -350,7 +350,7 @@ namespace Okex.Net
 		public async Task<WebCallResult<IEnumerable<OkexFundingWithdrawalDetails>>> Funding_GetWithdrawalHistoryByCurrency_Async(string currency, CancellationToken ct = default)
 		{
 			currency = currency.ValidateCurrency();
-			return await SendRequest<IEnumerable<OkexFundingWithdrawalDetails>>(GetUrl(Endpoints_Funding_WithdrawalHistoryCurrency, currency), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
+			return await SendRequest<IEnumerable<OkexFundingWithdrawalDetails>>(GetUrl(Endpoints_Funding_WithdrawalHistoryOfCurrency, currency), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
 		}
 
 
@@ -419,7 +419,7 @@ namespace Okex.Net
 		public async Task<WebCallResult<IEnumerable<OkexFundingDepositDetails>>> Funding_GetDepositHistoryByCurrency_Async(string currency, CancellationToken ct = default)
 		{
 			currency = currency.ValidateCurrency();
-			return await SendRequest<IEnumerable<OkexFundingDepositDetails>>(GetUrl(Endpoints_Funding_DepositHistoryCurrency, currency), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
+			return await SendRequest<IEnumerable<OkexFundingDepositDetails>>(GetUrl(Endpoints_Funding_DepositHistoryOfCurrency, currency), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
 		}
 		#endregion
 	}

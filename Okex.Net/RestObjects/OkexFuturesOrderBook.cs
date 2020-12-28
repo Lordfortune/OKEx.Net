@@ -1,40 +1,34 @@
 using CryptoExchange.Net.Attributes;
 using CryptoExchange.Net.Converters;
-using Okex.Net.Converters;
 using Newtonsoft.Json;
+using Okex.Net.Converters;
+using Okex.Net.Enums;
 using System;
 using System.Collections.Generic;
+using Okex.Net.Converters.Shared;
 
 namespace Okex.Net.RestObjects
 {
 	public class OkexFuturesOrderBook
 	{
+		[JsonProperty("asks")]
+		public IEnumerable<OkexFuturesOrderBookEntry> Asks { get; set; } = new List<OkexFuturesOrderBookEntry>();
+
+		[JsonProperty("bids")]
+		public IEnumerable<OkexFuturesOrderBookEntry> Bids { get; set; } = new List<OkexFuturesOrderBookEntry>();
+
+		[JsonOptionalProperty, JsonConverter(typeof(OrderBookDataTypeConverter))]
+		public OkexOrderBookDataType DataType { get; set; } = OkexOrderBookDataType.Api;
+
+		[JsonProperty("timestamp")]
+		public DateTime Timestamp { get; set; }
+
 		[JsonProperty("instrument_id"), JsonOptionalProperty]
 		public string Symbol { get; set; } = "";
 
 		[JsonProperty("checksum"), JsonOptionalProperty]
 		public long Checksum { get; set; }
 
-		[JsonOptionalProperty, JsonConverter(typeof(FuturesOrderBookDataTypeConverter))]
-		public OkexFuturesOrderBookDataType DataType { get; set; } = OkexFuturesOrderBookDataType.Api;
-
-		/// <summary>
-		/// Selling side
-		/// </summary>
-		[JsonProperty("asks")]
-		public List<OkexFuturesOrderBookEntry> Asks { get; set; } = new List<OkexFuturesOrderBookEntry>();
-
-		/// <summary>
-		/// Buying side
-		/// </summary>
-		[JsonProperty("bids")]
-		public List<OkexFuturesOrderBookEntry> Bids { get; set; } = new List<OkexFuturesOrderBookEntry>();
-
-		/// <summary>
-		/// Timestamp
-		/// </summary>
-		[JsonProperty("timestamp")]
-		public DateTime Timestamp { get; set; }
 	}
 
 	[JsonConverter(typeof(ArrayConverter))]
@@ -50,17 +44,18 @@ namespace Okex.Net.RestObjects
 		/// The contract size at the price
 		/// </summary>
 		[ArrayProperty(1)]
-		public decimal ContractSize { get; set; }
+		public decimal Quantity { get; set; }
 
 		/// <summary>
 		/// The number of the liquidated orders at the price
 		/// </summary>
 		[ArrayProperty(2)]
-		public decimal LiquidatedOrdersByPrice { get; set; }
+		public decimal LiquidatedOrdersCount { get; set; }
+
 		/// <summary>
 		/// The number of orders at the price
 		/// </summary>
 		[ArrayProperty(3)]
-		public decimal OrdersByPrice { get; set; }
+		public decimal OrdersCount { get; set; }
 	}
 }

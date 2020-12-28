@@ -31,9 +31,7 @@ namespace Okex.Net
         private static OkexSocketClientOptions DefaultOptions => defaultOptions.Copy();
         #endregion
 
-        private SecureString? Key;
-        private SecureString? Secret;
-        private SecureString? PassPhrase;
+      
         private HMACSHA256? hmacEncryptor;
         private bool socketAuthendicated;
 

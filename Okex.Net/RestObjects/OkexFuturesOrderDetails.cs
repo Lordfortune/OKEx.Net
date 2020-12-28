@@ -2,6 +2,7 @@ using System;
 using CryptoExchange.Net.Attributes;
 using Newtonsoft.Json;
 using Okex.Net.Converters;
+using Okex.Net.Enums;
 
 namespace Okex.Net.RestObjects
 {

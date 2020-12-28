@@ -342,14 +342,6 @@ namespace Okex.Net
 		CloseShort = 4
 	}
 
-	public enum OkexFuturesOrderType
-	{
-		NormalOrder = 0,
-		PostOnly = 1,
-		FillOrKill = 2,
-		ImmediateOrCancel = 3,
-		Market = 4
-	}
 
 	public enum OkexFuturesOrderMatchPrice
 	{

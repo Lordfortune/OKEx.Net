@@ -122,7 +122,7 @@ namespace Okex.Net
 		public async Task<WebCallResult<OkexSpotTicker>> Spot_GetSymbolTicker_Async(string symbol, CancellationToken ct = default)
 		{
 			symbol = symbol.ValidateSymbol();
-			return await SendRequest<OkexSpotTicker>(GetUrl(Endpoints_Spot_TradingPairTicker, symbol), HttpMethod.Get, ct).ConfigureAwait(false);
+			return await SendRequest<OkexSpotTicker>(GetUrl(Endpoints_Spot_TradingPairsTickerOfSymbol, symbol), HttpMethod.Get, ct).ConfigureAwait(false);
 		}
 
 
@@ -267,7 +267,7 @@ namespace Okex.Net
 		public async Task<WebCallResult<OkexSpotAccount>> Spot_GetSymbolBalance_Async(string currency, CancellationToken ct = default)
 		{
 			currency = currency.ValidateCurrency();
-			return await SendRequest<OkexSpotAccount>(GetUrl(Endpoints_Spot_Account, currency), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
+			return await SendRequest<OkexSpotAccount>(GetUrl(Endpoints_Spot_AccountsOfCurrency, currency), HttpMethod.Get, ct, signed: true).ConfigureAwait(false);
 		}
 
 

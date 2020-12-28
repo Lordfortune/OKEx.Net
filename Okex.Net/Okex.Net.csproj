@@ -68,9 +68,14 @@ First Release</PackageReleaseNotes>
     <FileVersion>1.2.3.0</FileVersion>
     <PackageProjectUrl>https://github.com/burakoner/OKEx.Net</PackageProjectUrl>
     <RepositoryUrl>https://github.com/burakoner/OKEx.Net</RepositoryUrl>
+    <UserSecretsId>a3716ef5-d1dd-4772-9d36-d3636e051980</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="Attributes\" />
+    <Folder Include="Converters\Shared\" />
+    <Folder Include="Enums\" />
+    <Folder Include="CoreObjects\" />
+    <Folder Include="SocketObjects\Futures\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Icon\icon.png">
