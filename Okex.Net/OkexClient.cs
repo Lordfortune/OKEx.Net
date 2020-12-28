@@ -288,9 +288,9 @@ namespace Okex.Net
 		/// <summary>
 		/// Create a new instance of the OkexClient with the provided options
 		/// </summary>
-		public OkexClient(OkexClientOptions options) : base(options, options.ApiCredentials == null ? null : new OkexAuthenticationProvider(options.ApiCredentials, "", options.SignPublicRequests, ArrayParametersSerialization.Array))
+		public OkexClient(OkexClientOptions options) : base("Okex", options, options.ApiCredentials == null ? null : new OkexAuthenticationProvider(options.ApiCredentials, "", options.SignPublicRequests, ArrayParametersSerialization.Array))
 		{
-			this.SignPublicRequests = options.SignPublicRequests;
+			SignPublicRequests = options.SignPublicRequests;
 		}
 		#endregion
 

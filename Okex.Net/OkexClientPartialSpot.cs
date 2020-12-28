@@ -39,15 +39,6 @@ namespace Okex.Net
 		}
 
 
-		/// <summary>
-		/// Retrieve a trading pair's order book. Pagination is not supported here; the entire orderbook will be returned per request. This is publicly accessible without account authentication. WebSocket is recommended here.
-		/// Rate limit: 20 requests per 2 seconds
-		/// </summary>
-		/// <param name="symbol">Trading pair symbol</param>
-		/// <param name="size">Number of results per request. Maximum 200</param>
-		/// <param name="depth">Aggregation of the order book. e.g . 0.1, 0.001</param>
-		/// <param name="ct">Cancellation Token</param>
-		/// <returns></returns>
 		public WebCallResult<OkexSpotOrderBook> Spot_GetOrderBook(string symbol, int? size = null, decimal? depth = null, CancellationToken ct = default) => Spot_GetOrderBook_Async(symbol, size, depth, ct).Result;
 		/// <summary>
 		/// Retrieve a trading pair's order book. Pagination is not supported here; the entire orderbook will be returned per request. This is publicly accessible without account authentication. WebSocket is recommended here.
@@ -77,7 +68,7 @@ namespace Okex.Net
 				return new WebCallResult<OkexSpotOrderBook>(result.ResponseStatusCode, result.ResponseHeaders, default, result.Error);
 
 			if (result.Error != null)
-				return new WebCallResult<OkexSpotOrderBook>(result.ResponseStatusCode, result.ResponseHeaders, default, new ServerError(result.Error.Code, result.Error.Message));
+				return new WebCallResult<OkexSpotOrderBook>(result.ResponseStatusCode, result.ResponseHeaders, default, new ServerError(/*result.Error.Code,*/ result.Error.Message));
 
 			result.Data.Symbol = symbol.ToUpper(OkexGlobals.OkexCultureInfo);
 			return new WebCallResult<OkexSpotOrderBook>(result.ResponseStatusCode, result.ResponseHeaders, result.Data, null);
@@ -163,7 +154,7 @@ namespace Okex.Net
 				return new WebCallResult<IEnumerable<OkexSpotTrade>>(result.ResponseStatusCode, result.ResponseHeaders, default, result.Error);
 
 			if (result.Error != null)
-				return new WebCallResult<IEnumerable<OkexSpotTrade>>(result.ResponseStatusCode, result.ResponseHeaders, default, new ServerError(result.Error.Code, result.Error.Message));
+				return new WebCallResult<IEnumerable<OkexSpotTrade>>(result.ResponseStatusCode, result.ResponseHeaders, default, new ServerError(/*result.Error.Code,*/ result.Error.Message));
 
 			foreach (var data in result.Data)
 			{
@@ -174,26 +165,25 @@ namespace Okex.Net
 			#endregion
 		}
 
-
-            /// <summary>
-            /// Retrieve the candlestick charts of the trading pairs. This API can retrieve the latest 2000 entries of data. Candlesticks are returned in groups based on requested granularity. Maximum of 2,000 entries can be retrieved.
-            /// Rate limit: 20 requests per 2 seconds
-            /// </summary>
-            /// <param name="symbol">Trading pairs symbol</param>
-            /// <param name="period">Start time in ISO 8601</param>
-            /// <param name="start">End time in ISO 8601</param>
-            /// <param name="end">Bar size in seconds, default 60, must be one of [60/180/300/900/1800/3600/7200/14400/21600/43200/86400/604800] or returns error</param>
-            /// <param name="ct">Cancellation Token</param>
-            /// <returns></returns>
-            public WebCallResult<IEnumerable<OkexSpotCandle>> Spot_GetCandles(string symbol, OkexSpotPeriod period, DateTime? start = null, DateTime? end = null, CancellationToken ct = default) => Spot_GetCandles_Async(symbol, period, start, end, ct).Result;
 		/// <summary>
 		/// Retrieve the candlestick charts of the trading pairs. This API can retrieve the latest 2000 entries of data. Candlesticks are returned in groups based on requested granularity. Maximum of 2,000 entries can be retrieved.
 		/// Rate limit: 20 requests per 2 seconds
 		/// </summary>
 		/// <param name="symbol">Trading pairs symbol</param>
-		/// <param name="period">Start time in ISO 8601</param>
-		/// <param name="start">End time in ISO 8601</param>
-		/// <param name="end">Bar size in seconds, default 60, must be one of [60/180/300/900/1800/3600/7200/14400/21600/43200/86400/604800] or returns error</param>
+		/// <param name="period">Bar size in seconds, default 60, must be one of [60/180/300/900/1800/3600/7200/14400/21600/43200/86400/604800] or returns error</param>
+		/// <param name="start">Start time in ISO 8601</param>
+		/// <param name="end">End time in ISO 8601</param>
+		/// <param name="ct">Cancellation Token</param>
+		/// <returns></returns>
+		public WebCallResult<IEnumerable<OkexSpotCandle>> Spot_GetCandles(string symbol, OkexSpotPeriod period, DateTime? start = null, DateTime? end = null, CancellationToken ct = default) => Spot_GetCandles_Async(symbol, period, start, end, ct).Result;
+		/// <summary>
+		/// Retrieve the candlestick charts of the trading pairs. This API can retrieve the latest 2000 entries of data. Candlesticks are returned in groups based on requested granularity. Maximum of 2,000 entries can be retrieved.
+		/// Rate limit: 20 requests per 2 seconds
+		/// </summary>
+		/// <param name="symbol">Trading pairs symbol</param>
+		/// <param name="period">Bar size in seconds, default 60, must be one of [60/180/300/900/1800/3600/7200/14400/21600/43200/86400/604800] or returns error</param>
+		/// <param name="start">Start time in ISO 8601</param>
+		/// <param name="end">End time in ISO 8601</param>
 		/// <param name="ct">Cancellation Token</param>
 		/// <returns></returns>
 		public async Task<WebCallResult<IEnumerable<OkexSpotCandle>>> Spot_GetCandles_Async(string symbol, OkexSpotPeriod period, DateTime? start = null, DateTime? end = null, CancellationToken ct = default)
@@ -217,7 +207,7 @@ namespace Okex.Net
 				return new WebCallResult<IEnumerable<OkexSpotCandle>>(result.ResponseStatusCode, result.ResponseHeaders, default, result.Error);
 
 			if (result.Error != null)
-				return new WebCallResult<IEnumerable<OkexSpotCandle>>(result.ResponseStatusCode, result.ResponseHeaders, default, new ServerError(result.Error.Code, result.Error.Message));
+				return new WebCallResult<IEnumerable<OkexSpotCandle>>(result.ResponseStatusCode, result.ResponseHeaders, default, new ServerError(/*result.Error.Code,*/ result.Error.Message));
 
 			foreach (var data in result.Data)
 			{
@@ -227,6 +217,7 @@ namespace Okex.Net
 			return new WebCallResult<IEnumerable<OkexSpotCandle>>(result.ResponseStatusCode, result.ResponseHeaders, result.Data, null);
 			#endregion
 		}
+
 		#endregion
 
 		#region Private EndPoints
